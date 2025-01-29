@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/editTextNumeroCorredores"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Número de Corredores"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"/>
+
+    <EditText
+        android:id="@+id/editTextDistancia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Distancia"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextNumeroCorredores"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/buttonIniciarCarrera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Iniciar Carrera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextDistancia"
+        android:layout_marginTop="30dp"/>
+
+    <!-- Contenedor ScrollView para hacer desplazable el contenido -->
+    <android.widget.ScrollView
+        android:id="@+id/scrollViewResultado"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonIniciarCarrera"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="30dp">
+
+        <!-- El TextView ahora está dentro del ScrollView para hacer desplazable el contenido -->
+        <TextView
+            android:id="@+id/textViewResultado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resultado de la Carrera"
+            android:padding="16dp" />
+    </android.widget.ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
