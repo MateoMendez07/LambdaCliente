@@ -76,30 +76,38 @@ public class MainActivity extends AppCompatActivity {
                                 // Parseamos el campo 'body' que es un string JSON
                                 JSONObject body = new JSONObject(response.getString("body"));
 
-                                // Extraer del cuerpo el mensaje y los corredores
+                                // Extraer mensaje de respuesta
                                 String mensaje = body.getString("mensaje");
-                                textViewResultado.setText(mensaje);
+                                StringBuilder resultados = new StringBuilder(mensaje + "\n\n");
+
+                                // Extraer el ganador
+                                if (body.has("ganador")) {
+                                    JSONObject ganador = body.getJSONObject("ganador");
+                                    resultados.append("🏆 GANADOR: ").append(ganador.getString("nombre")).append("\n")
+                                            .append("Velocidad: ").append(ganador.getInt("velocidad")).append(" km/h\n")
+                                            .append("Posición final: ").append(ganador.getInt("posicion")).append(" metros\n\n");
+                                }
 
                                 // Procesamos los corredores
-                                if (body.has("corredores")) {
-                                    JSONArray corredores = body.getJSONArray("corredores");
-                                    StringBuilder resultados = new StringBuilder();
-                                    //Apariencia del texto
+                                if (body.has("posicionesFinales")) {
+                                    JSONArray corredores = body.getJSONArray("posicionesFinales");
+
+                                    resultados.append("📋 POSICIONES FINALES:\n");
                                     for (int i = 0; i < corredores.length(); i++) {
                                         JSONObject corredor = corredores.getJSONObject(i);
                                         String nombre = corredor.getString("nombre");
                                         int velocidad = corredor.getInt("velocidad");
                                         int posicion = corredor.getInt("posicion");
-                                        int distancia = corredor.getInt("distancia");
 
-                                        resultados.append("Corredor: ").append(nombre).append("\n")
-                                                .append("Velocidad: ").append(velocidad).append(" km/h\n")
-                                                .append("Posición: ").append(posicion).append("\n")
-                                                .append("Distancia: ").append(distancia).append(" metros\n\n");
+                                        resultados.append(i + 1).append(". ").append(nombre)
+                                                .append(" - Velocidad: ").append(velocidad).append(" km/h")
+                                                .append(" - Posición final: ").append(posicion).append(" metros\n");
                                     }
-
-                                    textViewResultado.append("\n\n" + resultados.toString());
                                 }
+
+                                // Mostrar resultados en el TextView
+                                textViewResultado.setText(resultados.toString());
+
                             } catch (Exception e) {
                                 textViewResultado.setText("Error al procesar la respuesta");
                             }
